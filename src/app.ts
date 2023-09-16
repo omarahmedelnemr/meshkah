@@ -1,4 +1,8 @@
-// const multer = require('multer')
+
+import elnemrRouter from './Server/elnemr'
+import tajRouter from './Server/taj'
+import zakiRouter from './Server/zaki'
+
 var cors = require('cors')
 const express = require('express');
 const app = express()
@@ -15,9 +19,19 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(__dirname+'/views'))
+app.use("/elnemr",elnemrRouter)
+app.use("/zaki",zakiRouter)
+app.use("/taj",tajRouter)
+
+
 app.get('/',async (req,res)=>{
-    res.status(200).json("Welcome to Meshkah API")
+    res.send("\
+        <div style='display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;background-color:#dfdfdf'>\
+            <h1 >Congrats, Meshkah API is Working :D(General Side)</h1>\
+            <h2><a href='/taj'>Go To Taj Side</a></h2>\
+            <h2><a href='/zaki'>Go To Zaki Side</a></h2>\
+            <h2><a href='/elnemr'>Go To Elnemr Side</a></h2>\
+        </div>")
 })
 
 
