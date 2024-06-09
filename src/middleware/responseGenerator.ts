@@ -10,16 +10,16 @@ class GenerateResponse{
     alreadyExist   = {status:406,data:"Email Already Exist"}
 
     // Common Responses Functions
-    sendMissingParam(params){
+    sendMissingParam(params:Object){
         return {status:406,data:`Missing Parameters: {${params}}`};
     }
-    sendData(data){
+    sendData(data:any){
         return {status:200,data:data}
     }
-    sendError(data){
+    sendError(data:any){
         return {status:406,data:data}
     }
-    custom(status,data){
+    custom(status:number,data:any){
         return {status:status,data:data}
     }
 }

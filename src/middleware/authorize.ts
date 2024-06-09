@@ -1,7 +1,9 @@
 
+import {Request,Response} from 'express';
+
 var jwt = require('jsonwebtoken');
 
-export async function Authorize(req,res,next){
+export async function Authorize(req:Request,res:Response,next:any){
     // next()
 
     if(process.env.ENV == 'dev'){
