@@ -1,4 +1,5 @@
 import TodoModel from "../Models/TodoModel";
+import {Request,Response} from 'express';
 
 class TodoController{
 

@@ -12,6 +12,7 @@ import AdminAttendanceRoutes      from './Server/Routes/AdminAttendance'
 import AdminFinancialsRoutes      from './Server/Routes/AdminFinancials'
 import SuperAdminRoutes           from './Server/Routes/SuperAdmin'
 import * as express from 'express';
+import {Request,Response} from 'express';
 
 var cors = require('cors')
 // const express = require('express');
@@ -80,7 +81,7 @@ app.use("/admin-financials",AdminFinancialsRoutes)
 app.use("/super-admin",SuperAdminRoutes)
 
 // Main API Route
-app.get('/',async (req,res)=>{
+app.get('/',async (req:Request,res:Response)=>{
     res.send("\
         <div style='display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background-color:#dfdfdf'>\
             <h1 >Congrats, Meshkah API is Working :D</h1>\

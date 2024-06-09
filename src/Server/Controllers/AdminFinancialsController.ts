@@ -1,4 +1,5 @@
 import AdminFinancialsModel from "../Models/AdminFinancialsModel";
+import {Request,Response} from 'express';
 
 class AdminFinancialsController{
 
