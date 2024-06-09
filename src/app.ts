@@ -76,12 +76,12 @@ app.use("/admin-financials",AdminFinancialsRoutes)
 //------------ Super Admin Routes ------------//
 
 // Super Admin Routes
-app.use("/super-admin",AdminFinancialsRoutes)
+app.use("/super-admin",SuperAdminRoutes)
 
 // Main API Route
 app.get('/',async (req,res)=>{
     res.send("\
-        <div style='display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;background-color:#dfdfdf'>\
+        <div style='display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;background-color:#dfdfdf'>\
             <h1 >Congrats, Meshkah API is Working :D</h1>\
             <h2><a href='https://docs.mishkah.omarelnemr.xyz' target='_blank'>Go To Docs Page ...  متنساش تجدد النية</a></h2>\
         </div>")
