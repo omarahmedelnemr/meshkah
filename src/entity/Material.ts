@@ -6,16 +6,16 @@ import { Lecture } from "./Lecture"
 export class Material {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    title: string
+    title!: string
 
     @Column()
-    link:string
+    link!:string
 
     // Relations
     @ManyToOne(()=>Lecture,lectureID => lectureID.id)
     @JoinColumn()
-    lecture:Lecture
+    lecture!:Lecture
 }

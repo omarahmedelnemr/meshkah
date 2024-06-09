@@ -5,21 +5,21 @@ import { Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm"
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    name: string
+    name!: string
 
     @Column()
-    phone: string
+    phone!: string
 
     @Column()
-    sex:string
+    sex!:string
     
     @Column()
-    role:string
+    role!:string
 
     @Column()
-    track:string
+    track!:string
 
 }

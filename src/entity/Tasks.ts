@@ -6,15 +6,15 @@ import { Lecture } from "./Lecture"
 export class Task {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     
     @Column({comment:"How Much of The Task is Done"})
-    title:string
+    title!:string
 
     // Relations
     @ManyToOne(()=>Lecture,lectureID =>lectureID.id)
     @JoinColumn()
-    lecture:Lecture
+    lecture!:Lecture
 
 }

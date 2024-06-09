@@ -11,9 +11,10 @@ import AdminLectureRoutes         from './Server/Routes/AdminLecture'
 import AdminAttendanceRoutes      from './Server/Routes/AdminAttendance'
 import AdminFinancialsRoutes      from './Server/Routes/AdminFinancials'
 import SuperAdminRoutes           from './Server/Routes/SuperAdmin'
+import * as express from 'express';
 
 var cors = require('cors')
-const express = require('express');
+// const express = require('express');
 const app = express()
 const cookieParser = require('cookie-parser');
 

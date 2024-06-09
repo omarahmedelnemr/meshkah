@@ -6,18 +6,18 @@ import { User } from "./User"
 export class LoginRouter {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    username: string
+    username!: string
 
     @Column()
-    password: string
+    password!: string
 
 
     // Relations
     @OneToOne(()=>User,userID=> userID.id)
     @JoinColumn()
-    user:User
+    user!:User
 
 }

@@ -7,26 +7,26 @@ import { User } from "./User"
 export class Task {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    title: string
+    title!: string
 
     @Column({comment:"Weather the Student Attended or Not"})
-    attended:boolean
+    attended!:boolean
     
 
     //Relations
     @ManyToOne(()=>Lecture,lectureID =>lectureID.id)
     @JoinColumn()
-    lecture:Lecture
+    lecture!:Lecture
 
     @ManyToOne(()=>User,userID =>userID.id)
     @JoinColumn()
-    admin:Lecture   //  The Admin Who Collected the Task Grades
+    admin!:Lecture   //  The Admin Who Collected the Task Grades
 
     @ManyToOne(()=>User,userID =>userID.id)
     @JoinColumn()
-    student:Lecture   //  The Student Who Made or Did'nt Made the Task
+    student!:Lecture   //  The Student Who Made or Did'nt Made the Task
 
 }

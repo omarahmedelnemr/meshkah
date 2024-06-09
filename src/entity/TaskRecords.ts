@@ -10,23 +10,23 @@ import { Task } from "./Tasks"
 export class TaskRecord {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column({comment:"How Much of The Task is Done"})
-    done:number
+    done!:number
     
 
     //Relations
     @ManyToOne(()=>Task,taskID =>taskID.id)
     @JoinColumn()
-    task:Task
+    task!:Task
 
     @ManyToOne(()=>User,userID =>userID.id)
     @JoinColumn()
-    admin:Lecture   //  The Admin Who Collected the Task Grades
+    admin!:Lecture   //  The Admin Who Collected the Task Grades
 
     @ManyToOne(()=>User,userID =>userID.id)
     @JoinColumn()
-    student:Lecture   //  The Student Who Made or Did'nt Made the Task
+    student!:Lecture   //  The Student Who Made or Did'nt Made the Task
 
 }

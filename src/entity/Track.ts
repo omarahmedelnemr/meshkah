@@ -7,19 +7,19 @@ import { Lecture } from "./Lecture"
 export class Track {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    name: string
+    name!: string
 
     @Column()
-    capacity:number
+    capacity!:number
 
     // Relations
     @OneToMany(()=>TrackExpensis,trackExpensisID =>trackExpensisID.id)
-    expensis:TrackExpensis[]
+    expensis!:TrackExpensis[]
 
 
     @OneToMany(()=>Lecture,lectureID =>lectureID.id)
-    lecture:Lecture[]
+    lecture!:Lecture[]
 }

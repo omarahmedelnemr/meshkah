@@ -6,15 +6,15 @@ import { Track } from "./Track"
 export class TrackExpensis {
 
     @PrimaryGeneratedColumn({comment: "Additional Costs Like  Food"})
-    id: number
+    id!: number
 
     @Column({comment: "The Title of the Spisific Amount of Expensis, like (150 for Food, 200 for Gifts)"})
-    title: string
+    title!: string
 
     @Column()
-    amount:number
+    amount!:number
 
     @ManyToOne(()=>Track, trackID =>trackID.id)
     @JoinColumn()
-    track:Track
+    track!:Track
 }
