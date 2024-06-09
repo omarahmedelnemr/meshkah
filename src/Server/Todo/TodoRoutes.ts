@@ -1,4 +1,4 @@
-import AdminAttendanceController from "../Controllers/AdminAttendanceController";
+import TodoController from "./TodoController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

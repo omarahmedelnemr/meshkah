@@ -1,4 +1,4 @@
-import AuthenticationModel from "../Models/AuthenticationModel";
+import AuthenticationModel from "./AuthenticationModel";
 import {Request,Response} from 'express';
 var jwt = require('jsonwebtoken');
 

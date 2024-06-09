@@ -1,4 +1,4 @@
-import LecturesController from "../Controllers/LecturesController";
+import OverviewController from "./OverviewController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

@@ -1,4 +1,4 @@
-import TodoController from "../Controllers/TodoController";
+import AdminTracksController from "./AdminTracksController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

@@ -1,4 +1,4 @@
-import AdminAuthednticationController from "../Controllers/AdminAuthednticationController";
+import LecturesController from "./LecturesController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

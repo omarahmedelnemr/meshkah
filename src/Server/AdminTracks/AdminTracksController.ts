@@ -1,4 +1,4 @@
-import AdminTracksModel from "../Models/AdminTracksModel";
+import AdminTracksModel from "./AdminTracksModel";
 import {Request,Response} from 'express';
 
 class AdminTracksController{

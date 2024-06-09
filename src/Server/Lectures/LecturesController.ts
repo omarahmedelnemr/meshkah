@@ -1,4 +1,4 @@
-import LecturesModel from "../Models/LecturesModel";
+import LecturesModel from "./LecturesModel";
 import {Request,Response} from 'express';
 
 class LecturesController{

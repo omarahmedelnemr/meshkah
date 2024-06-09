@@ -1,4 +1,4 @@
-import AdminTracksController from "../Controllers/AdminTracksController";
+import AttendanceController from "./AttendanceController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

@@ -1,4 +1,4 @@
-import TracksController from "../Controllers/TracksController";
+import SuperAdminController from "./SuperAdminController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

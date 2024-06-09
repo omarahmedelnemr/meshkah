@@ -1,18 +1,18 @@
-import AuthenticationRoutes       from './Server/Routes/Authentication'
-import OverviewRoutes             from './Server/Routes/Overview'
-import TracksRoutes               from './Server/Routes/Tracks'
-import LecturesRoutes             from './Server/Routes/Lectures'
-import AttendanceRoutes           from './Server/Routes/Attendance'
-import TodoRoutes                 from './Server/Routes/Todo'
-import SettingsRoutes             from './Server/Routes/Settings'
-import AdminAuthenticationRoutes  from './Server/Routes/AdminAuthentication'
-import AdminTracksRoutes          from './Server/Routes/AdminTracks'
-import AdminLectureRoutes         from './Server/Routes/AdminLecture'
-import AdminAttendanceRoutes      from './Server/Routes/AdminAttendance'
-import AdminFinancialsRoutes      from './Server/Routes/AdminFinancials'
-import SuperAdminRoutes           from './Server/Routes/SuperAdmin'
-import * as express from 'express';
-import {Request,Response} from 'express';
+import AuthenticationRoutes       from './Server/Authentication/AuthenticationRoutes'
+import OverviewRoutes             from './Server/Overview/OverviewRoutes'
+import TracksRoutes               from './Server/Tracks/TracksRoutes'
+import LecturesRoutes             from './Server/Lectures/LecturesRoutes'
+import AttendanceRoutes           from './Server/Attendance/AttendanceRoutes'
+import TodoRoutes                 from './Server/Todo/TodoRoutes'
+import SettingsRoutes             from './Server/Settings/SettingsRoutes'
+import AdminAuthenticationRoutes  from './Server/AdminAuthentication/AdminAuthenticationRoutes'
+import AdminTracksRoutes          from './Server/AdminTracks/AdminTracksRoutes'
+import AdminLectureRoutes         from './Server/AdminLectures/AdminLectureRoutes'
+import AdminAttendanceRoutes      from './Server/AdminAttendance/AdminAttendanceRoutes'
+import AdminFinancialsRoutes      from './Server/AdminFinancials/AdminFinancialsRoutes'
+import SuperAdminRoutes           from './Server/SuperAdmin/SuperAdminRoutes'
+import * as express               from 'express';
+import {Request,Response}         from 'express';
 
 var cors = require('cors')
 // const express = require('express');

@@ -1,4 +1,4 @@
-import TracksModel from "../Models/TracksModel";
+import TracksModel from "./TracksModel";
 import {Request,Response} from 'express';
 
 class TracksController{

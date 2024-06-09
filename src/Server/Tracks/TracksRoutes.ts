@@ -1,4 +1,4 @@
-import OverviewController from "../Controllers/OverviewController";
+import TracksController from "./TracksController";
 import { Authorize } from "../../middleware/authorize";
 const express = require('express');
 const router = express()

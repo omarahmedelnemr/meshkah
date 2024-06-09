@@ -1,4 +1,4 @@
-import SuperAdminModel from "../Models/SuperAdminModel";
+import SuperAdminModel from "./SuperAdminModel";
 import {Request,Response} from 'express';
 
 class SuperAdminController{

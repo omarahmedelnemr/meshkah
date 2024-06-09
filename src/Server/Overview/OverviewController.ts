@@ -1,5 +1,5 @@
 
-import overviewModel from "../Models/overviewModel";
+import overviewModel from "./overviewModel";
 import {Request,Response} from 'express';
 
 class OverviewController{
