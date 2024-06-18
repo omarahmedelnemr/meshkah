@@ -3,7 +3,7 @@ import { User } from "./User"
 import { Admin } from "./Admin"
 
 @Entity()
-@Unique(['id','username'])
+@Unique(['id','username',"email"])
 export class LoginRouter {
 
     @PrimaryGeneratedColumn()

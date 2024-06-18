@@ -3,7 +3,11 @@ import {Request,Response} from 'express';
 var jwt = require('jsonwebtoken');
 
 class AuthenticationController{
-    
+    async Complete_Signup(req:Request,res:Response) {
+        const response = await AuthenticationModel.CompleteSignup(req.body)
+        res.status(response['status']).json(response['data'])
+    }
+
     // Controller for Login Route 
     async loginController (req:Request,res:Response) {
         const response = await AuthenticationModel.login(req.body)

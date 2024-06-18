@@ -10,7 +10,27 @@ var jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt")
 
 class AuthenticationModel{
-
+    async CompleteSignup(reqData:object){
+        const missing = checkUndefined(reqData,["username","email","newPassword"])
+        if (missing){
+            return responseGenerator.sendMissingParam(missing)
+        }
+        try{
+            // Get User Row
+            const user = await Database.getRepository(LoginRouter).findOneBy({username:reqData['username']})
+            if (!user){
+                return responseGenerator.notFound
+            }
+            user.email = reqData['email']
+            user.password = await bcrypt.hash(reqData["newPassword"],10)
+            await Database.getRepository(LoginRouter).save(user)
+            return responseGenerator.done
+            
+        }catch(err){
+            console.log("There is an Error!!\n",err)
+            return responseGenerator.Error
+        }
+    }
     // Login Function Model
     async login(reqData:object){
         const missing = checkUndefined(reqData,["username","password"])
