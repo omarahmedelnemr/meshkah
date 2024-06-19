@@ -23,6 +23,9 @@ export class Track {
 
     @Column()
     openForEnrollment!:boolean
+    
+    @Column({nullable:true})
+    lectureDate!:Date
 
     // Relations
     @OneToMany(()=>Lecture,lectureID =>lectureID.id)

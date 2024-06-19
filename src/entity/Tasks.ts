@@ -9,7 +9,7 @@ export class Task {
     id!: number
 
     
-    @Column({comment:"How Much of The Task is Done"})
+    @Column()
     title!:string
 
     // Relations
