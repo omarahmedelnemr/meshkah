@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable } from "typeorm"
+import { Track } from "./Track"
 
 @Entity()
 @Unique(['id'])
@@ -18,5 +19,10 @@ export class Student {
     
     @Column()
     role!:string
+
+    // Relations
+    @ManyToMany(()=>Track,TrackID =>TrackID.id)
+    @JoinTable()
+    tracks!:Track
 
 }
