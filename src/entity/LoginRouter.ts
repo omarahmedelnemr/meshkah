@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn } from "typeorm"
-import { User } from "./User"
+import { Student } from "./Student"
 import { Admin } from "./Admin"
 
 @Entity()
@@ -22,9 +22,9 @@ export class LoginRouter {
     userType!: boolean
 
     // Relations
-    @OneToOne(()=>User,userID=> userID.id)
+    @OneToOne(()=>Student,userID=> userID.id)
     @JoinColumn()
-    user!:User
+    student!:Student
 
     // Relations
     @OneToOne(()=>Admin,adminID=> adminID.id)

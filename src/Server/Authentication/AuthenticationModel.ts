@@ -2,7 +2,7 @@ import { Database } from "../../data-source";
 import { Admin } from "../../entity/Admin";
 import { ConfirmCode } from "../../entity/ConfirmCode";
 import { LoginRouter } from "../../entity/LoginRouter";
-import { User } from "../../entity/User";
+import { Student } from "../../entity/Student";
 import checkUndefined from "../../middleware/checkUndefined";
 import responseGenerator from "../../middleware/responseGenerator";
 import SendMail from "../../middleware/sendMail";
@@ -16,7 +16,7 @@ class AuthenticationModel{
             return responseGenerator.sendMissingParam(missing)
         }
         try{
-            // Get User Row
+            // Get Student Row
             const user = await Database.getRepository(LoginRouter).findOneBy({username:reqData['username']})
             if (!user){
                 return responseGenerator.notFound
@@ -42,7 +42,7 @@ class AuthenticationModel{
             const username = reqData['username']
             const password = reqData['password']
 
-            // Getting User's Info
+            // Getting Student's Info
             const user = await Database.getRepository(LoginRouter).findOneBy({username:username})
             if (!user){
                 return responseGenerator.notFound
@@ -57,7 +57,7 @@ class AuthenticationModel{
 
             var userInfo;
             
-            // Check Users Role
+            // Check Students Role
             if (user['userType']){
                  userInfo = await Database.getRepository(Admin)
                     .createQueryBuilder('user')
@@ -65,7 +65,7 @@ class AuthenticationModel{
                     .where('LoginRouter.id = :adminId', { adminId: user.id })
                     .getOne();
             }else{
-                 userInfo = await Database.getRepository(User)
+                 userInfo = await Database.getRepository(Student)
                     .createQueryBuilder('user')
                     .innerJoinAndSelect('LoginRouter',"LoginRouter")
                     .where('LoginRouter.id = :adminId', { adminId: user.id })
