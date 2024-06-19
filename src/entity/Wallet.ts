@@ -1,18 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany, ManyToOne, JoinColumn } from "typeorm"
 import { Track } from "./Track"
+import { Student } from "./Student"
 
 @Entity()
 @Unique(['id'])
-export class TrackExpensis {
+export class Wallet {
 
     @PrimaryGeneratedColumn({comment: "Additional Costs Like  Food"})
     id!: number
 
-    @Column({comment: "The Title of the Spisific Amount of Expensis, like (150 for Food, 200 for Gifts)"})
-    title!: string
-
     @Column()
-    amount!:number
+    value!:number
+
+    // Relations
+    @ManyToOne(()=>Student, studentID =>studentID.id)
+    @JoinColumn()
+    student!:Student
 
     @ManyToOne(()=>Track, trackID =>trackID.id)
     @JoinColumn()

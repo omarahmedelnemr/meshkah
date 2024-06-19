@@ -19,7 +19,4 @@ export class Student {
     @Column()
     role!:string
 
-    @Column()
-    track!:string
-
 }

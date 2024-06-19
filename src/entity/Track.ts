@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany, JoinColumn } from "typeorm"
-import { TrackExpensis } from "./TrackExpensis"
 import { Lecture } from "./Lecture"
 
 @Entity()
@@ -13,13 +12,12 @@ export class Track {
     name!: string
 
     @Column()
-    capacity!:number
+    lecturesCount!:number
+
+    @Column()
+    attendingExpensis!:number
 
     // Relations
-    @OneToMany(()=>TrackExpensis,trackExpensisID =>trackExpensisID.id)
-    expensis!:TrackExpensis[]
-
-
     @OneToMany(()=>Lecture,lectureID =>lectureID.id)
     lecture!:Lecture[]
 }
