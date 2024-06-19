@@ -4,7 +4,7 @@ import { Student } from "./Student"
 
 @Entity()
 @Unique(['id'])
-export class Task {
+export class Attendance {
 
     @PrimaryGeneratedColumn()
     id!: number
