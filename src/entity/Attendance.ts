@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique, JoinColumn, ManyToOne } from "typeorm"
 import { Lecture } from "./Lecture"
 import { Student } from "./Student"
+import { Track } from "./Track"
 
 @Entity()
 @Unique(['id'])
@@ -9,11 +10,8 @@ export class Attendance {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column()
-    title!: string
-
-    @Column({comment:"Weather the Student Attended or Not"})
-    attended!:boolean
+    @Column({comment:"Weather the Student Attended or Not, 0 for Not, 1 for Attended, 2 for attended Late"})
+    attended!:number
     
 
     //Relations
@@ -21,9 +19,13 @@ export class Attendance {
     @JoinColumn()
     lecture!:Lecture
 
-    @ManyToOne(()=>Student,userID =>userID.id)
+    @ManyToOne(()=>Track,trackID =>trackID.id)
     @JoinColumn()
-    admin!:Student   //  The Admin Who Collected the Task Grades
+    track!:Track
+
+    // @ManyToOne(()=>Student,userID =>userID.id)
+    // @JoinColumn()
+    // admin!:Student   //  The Admin Who Collected the Task Grades
 
     @ManyToOne(()=>Student,userID =>userID.id)
     @JoinColumn()

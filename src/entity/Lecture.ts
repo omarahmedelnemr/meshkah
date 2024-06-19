@@ -12,6 +12,9 @@ export class Lecture {
     @Column()
     title!: string
 
+    @Column()
+    date!: Date
+
     //Relations
     @ManyToOne(()=>Track,trackID =>trackID.id)
     @JoinColumn()
