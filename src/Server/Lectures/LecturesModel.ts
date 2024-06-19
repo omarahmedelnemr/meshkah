@@ -44,8 +44,6 @@ class LecturesModel{
             return responseGenerator.sendMissingParam(missing)
         }
         try{
-
-            const tasks = await Database.getRepository(Task).findBy({lecture:{id:reqData['lectureID']}})
             const TaskRecords = await Database
             .getRepository(TaskRecord)
             .createQueryBuilder("records")
