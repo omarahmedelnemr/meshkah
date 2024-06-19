@@ -8,6 +8,7 @@ class GenerateResponse{
     Error          = {status:406,data:"Error While DB Connection"} 
     wrongPassword  = {status:404,data:"Wrong Password"}
     alreadyExist   = {status:406,data:"Email Already Exist"}
+    usernameAlreadyExist   = {status:406,data:"Username Already Exist"}
 
     // Common Responses Functions
     sendMissingParam(params:Object){
