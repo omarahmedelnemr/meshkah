@@ -54,7 +54,7 @@ class LecturesModel{
 
             // Prettify the result into the desired format
             const transformedRecords = TaskRecords.map(record => ({
-                id: record.task.id,
+                id: record.id,
                 title: record.task.title,
                 done: record.done
             }));
