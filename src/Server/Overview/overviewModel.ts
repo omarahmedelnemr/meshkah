@@ -79,7 +79,7 @@ class OverviewModel{
 
     // Get Overview on Statistics
     async GetStatisticsOverview(reqData:object){
-        const missing = checkUndefined(reqData,[])
+        const missing = checkUndefined(reqData,["userID","trackID"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }
@@ -103,7 +103,7 @@ class OverviewModel{
 
     // Get The Next Lecture Date
     async GetNextLecture(reqData:object){
-        const missing = checkUndefined(reqData,[])
+        const missing = checkUndefined(reqData,["trackID"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }

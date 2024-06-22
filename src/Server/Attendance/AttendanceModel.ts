@@ -24,7 +24,7 @@ class AttendanceModel{
             const transformedRecords = attendanceRecords.map(record => ({
                 title: record.lecture.title,
                 date: record.lecture.date,
-                attended: record.attended
+                attended: record.attended,
             }));
             return responseGenerator.sendData(transformedRecords)
         }catch(err){

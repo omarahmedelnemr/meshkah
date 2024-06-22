@@ -104,7 +104,7 @@ class TodoModel{
 
     // Mark Task as Not Done
     async MarkNotDone(reqData:object){
-        const missing = checkUndefined(reqData,[])
+        const missing = checkUndefined(reqData,["recordID"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }

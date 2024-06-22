@@ -53,8 +53,6 @@ class AuthenticationModel{
                 return responseGenerator.wrongPassword
             }
 
-
-
             var userInfo;
             
             // Check Students Role
@@ -62,19 +60,18 @@ class AuthenticationModel{
                  userInfo = await Database.getRepository(Admin)
                     .createQueryBuilder('user')
                     .innerJoinAndSelect('LoginRouter',"LoginRouter")
-                    .where('LoginRouter.id = :adminId', { adminId: user.id })
+                    .where('LoginRouter.admin.id = :studentID', { studentID: user.id })
                     .getOne();
             }else{
                  userInfo = await Database.getRepository(Student)
                     .createQueryBuilder('user')
                     .innerJoinAndSelect('LoginRouter',"LoginRouter")
-                    .where('LoginRouter.id = :adminId', { adminId: user.id })
+                    .where('LoginRouter.student.id = :adminId', { adminId: user.id })
                     .getOne();
             }
 
-
             const JWTInfo = {
-                "id":userInfo['id'],
+                "id":user.id,
                 'email':user['email'],
                 "role":user['userType']
             }
