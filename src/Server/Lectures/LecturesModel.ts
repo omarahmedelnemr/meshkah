@@ -14,7 +14,7 @@ class LecturesModel{
             return responseGenerator.sendMissingParam(missing)
         }
         try{
-            const lectures = await Database.getRepository(Lecture).findBy({track:{id:reqData['trackID']}})
+            const lectures = await Database.getRepository(Lecture).findBy({track:{id:reqData['trackID']},archived:false})
             return responseGenerator.sendData(lectures)
         }catch(err){
             console.log("There is an Error!!\n",err)
