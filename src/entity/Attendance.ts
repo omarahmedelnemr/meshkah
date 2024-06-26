@@ -10,7 +10,7 @@ export class Attendance {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column({comment:"Weather the Student Attended or Not, 0 for Not, 1 for Attended, 2 for attended Late"})
+    @Column({comment:"Wheather the Student Attended or Not, 0 for Not, 1 for Attended, 2 for attended Late"})
     attended!:number
     
 
