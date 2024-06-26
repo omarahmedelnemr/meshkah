@@ -10,6 +10,9 @@ export class Material {
 
     @Column()
     title!: string
+    
+    @Column({comment:"wheather a Video to Be Embedded or just a Link"})
+    video!:boolean
 
     @Column()
     link!:string
