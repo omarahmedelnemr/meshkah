@@ -15,6 +15,9 @@ export class Lecture {
     @Column()
     date!: Date
 
+    @Column({default:false})
+    archived:boolean
+
     //Relations
     @ManyToOne(()=>Track,trackID =>trackID.id)
     @JoinColumn()
