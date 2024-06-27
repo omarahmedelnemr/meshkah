@@ -25,13 +25,19 @@ class SuperAdminModel{
 
     // Generate a JWT to Add New Admin
     async CreateNewAdminLink(reqData:object){
-        const missing = checkUndefined(reqData,["daysLimit"])
+        const missing = checkUndefined(reqData,["daysLimit","permissions","tracks"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }
         try{
+            // Check Permissions Datatype
+            if ( !Array.isArray(reqData['permissions']) || !Array.isArray(reqData['tracks'])){
+                return responseGenerator.sendError("Permissions and tracks Parameter Must Be Array of Permissions ID's")
+            }
             const JWTInfo = {
-                target:"admin"
+                target:"admin",
+                permissions:reqData['permissions'],
+                tracks:reqData['tracks']
             }
             //Generat JWT That Last For {daysLimit} Days
             var generatedJWT = jwt.sign( JWTInfo,process.env.JWTsecret,{ expiresIn: 60 * 60 * 24 * Number(reqData['daysLimit']) } )
@@ -126,7 +132,7 @@ class SuperAdminModel{
 
     // Create New Track
     async AddNewTrack(reqData:object){
-        const missing = checkUndefined(reqData,["name","lecturesCount","attendingExpensis","openForEnrollment","lectureDay"])
+        const missing = checkUndefined(reqData,["name","lecturesCount","attendingExpensis","EnrollmentDeadline","lectureDay"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }
@@ -136,7 +142,7 @@ class SuperAdminModel{
             newTrack.name               = reqData['name']
             newTrack.lecturesCount      = reqData['lecturesCount']
             newTrack.attendingExpensis  = reqData['attendingExpensis']
-            newTrack.openForEnrollment  = new Date(reqData['openForEnrollment'])
+            newTrack.EnrollmentDeadline  = new Date(reqData['EnrollmentDeadline'])
             newTrack.lectureDay         = reqData['lectureDay']
 
             // Save to DB
@@ -217,7 +223,7 @@ class SuperAdminModel{
             const newTrack              = await Database.getRepository(Track).findOneBy({id:reqData['trackID']})
 
             // Change the Date
-            newTrack.openForEnrollment  = new Date(reqData['DateToClose'])
+            newTrack.EnrollmentDeadline  = new Date(reqData['DateToClose'])
 
             // Save to DB
             await Database.getRepository(Track).save(newTrack)
@@ -240,7 +246,7 @@ class SuperAdminModel{
             const newTrack              = await Database.getRepository(Track).findOneBy({id:reqData['trackID']})
 
             // Change the Date
-            newTrack.openForEnrollment  = new Date(reqData['currentDate'])
+            newTrack.EnrollmentDeadline  = new Date(reqData['currentDate'])
 
             // Save to DB
             await Database.getRepository(Track).save(newTrack)
@@ -254,17 +260,36 @@ class SuperAdminModel{
 
     // Generate a Link For Track Registration
     async GenerateRegistrationLink(reqData:object){
-        const missing = checkUndefined(reqData,["daysLimit","trackID"])
+        const missing = checkUndefined(reqData,["trackID","currentDate"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }
         try{
+            // Getting Track Info
+            const trackInfo = await Database.getRepository(Track).findOneBy({id:reqData['trackID']})
+            if(!trackInfo){
+                return responseGenerator.sendError("Track Not Found")
+            }
+            
+            const enrollmentDeadline = trackInfo.EnrollmentDeadline;
+            if (!enrollmentDeadline) {
+                return responseGenerator.sendError("Track EnrollmentDeadline date is not set");
+            }
+
+            const now = new Date(reqData['currentDate']);
+            const enrollmentDate = new Date(enrollmentDeadline);
+            const timeDifference = enrollmentDate.getTime() - now.getTime();
+
+            if (timeDifference <= 0) {
+                return responseGenerator.sendError("Track enrollment date has already passed");
+            }
+
             const JWTInfo = {
                 track:reqData['trackID'],
                 target:"students"
             }
             //Generat JWT That Last For {daysLimit} Days
-            var generatedJWT = jwt.sign( JWTInfo,process.env.JWTsecret,{ expiresIn: 60 * 60 * 24 * Number(reqData['daysLimit']) } )
+            const generatedJWT = jwt.sign(JWTInfo, process.env.JWTsecret, { expiresIn: timeDifference / 1000 });
 
             return responseGenerator.sendData(generatedJWT)
         }catch(err){
