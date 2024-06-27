@@ -16,9 +16,6 @@ export class Student {
 
     @Column()
     sex!:string
-    
-    @Column()
-    role!:string
 
     // Relations
     @ManyToMany(()=>Track,TrackID =>TrackID.id)
