@@ -14,8 +14,8 @@ export class FinancialRecord {
     @Column()
     paid!: boolean
 
-    @Column()
-    date!:Date
+    // @Column()
+    // date!:Date
 
     //Relations
     @ManyToOne(()=>Track,trackID =>trackID.id)
