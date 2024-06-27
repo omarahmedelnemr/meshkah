@@ -34,7 +34,7 @@ class TracksModel {
     // Get All Tracks That The Student Can Enroll in
     async open_tracks(reqData: object) {
         // Check for missing parameters
-        const missing = checkUndefined(reqData, ["userID"]);
+        const missing = checkUndefined(reqData, ["userID","currentDate"]);
         if (missing) {
             return responseGenerator.sendMissingParam(missing);
         }
@@ -49,12 +49,13 @@ class TracksModel {
             // Extract the IDs of the enrolled tracks
             const enrolledTrackIds =Object(student.tracks).map(track => track.id) ;
 
-            // Fetch tracks that are open for enrollment and not enrolled by the student
+
+            // Fetch tracks that are open for enrollment in the future and not enrolled by the student
             const tracks = await Database.getRepository(Track).createQueryBuilder('track')
-                .where('track.openForEnrollment = :openForEnrollment', { openForEnrollment: true })
+                .where('track.openForEnrollment > :currentDate AND track.openForEnrollment IS Not NULL', { currentDate: new Date(reqData["currentDate"]) })
                 .andWhere('track.id NOT IN (:...enrolledTrackIds)', { enrolledTrackIds })
                 .getMany();
-
+            
             // Return the available tracks for enrollment
             return responseGenerator.sendData(tracks);
         } catch (err) {

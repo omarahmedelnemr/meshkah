@@ -22,8 +22,8 @@ export class Track {
     @Column()
     attendingExpensis!:number
 
-    @Column()
-    openForEnrollment!:boolean
+    @Column({nullable:true})
+    openForEnrollment!:Date
     
     @Column({ nullable: true, comment: "The Day of the Week for the Lecture" })
     @IsIn(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
