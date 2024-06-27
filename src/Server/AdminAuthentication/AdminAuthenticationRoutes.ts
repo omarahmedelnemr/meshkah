@@ -1,10 +1,10 @@
 import AdminAuthednticationController from "./AdminAuthednticationController";
-import { Authorize } from "../../middleware/authorize";
+import { AuthorizeAdmin } from "../../middleware/authorizeAdmin";
 const express = require('express');
 const router = express()
 
-// Example:
-// router.get("/endpoint", AuthorizationFunctions, Controller.method);
+// Admin Sign-up:
+router.post("/signup", AuthorizeAdmin, AdminAuthednticationController.AdminSignup);
 
 
 export default router
