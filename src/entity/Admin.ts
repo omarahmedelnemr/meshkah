@@ -15,8 +15,8 @@ export class Admin {
     @Column()
     phone!: string
 
-    @Column()
-    sex!:string
+    @Column({comment:"0 for Male, 1 For Woman"})
+    sex!:boolean
 
     // Relations
     @ManyToMany(()=>Track,TrackID =>TrackID.id)
