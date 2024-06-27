@@ -26,9 +26,9 @@ export class FinancialRecord {
     @JoinColumn()
     lecture!:Lecture
 
-    @ManyToOne(()=>Admin,userID =>userID.id)
-    @JoinColumn()
-    admin!:Admin   //  The Admin Who Collected the Task Grades
+    // @ManyToOne(()=>Admin,userID =>userID.id)
+    // @JoinColumn()
+    // admin!:Admin   //  The Admin Who Collected the Task Grades
 
     @ManyToOne(()=>Student,userID =>userID.id)
     @JoinColumn()
