@@ -52,7 +52,7 @@ class TracksModel {
 
             // Fetch tracks that are open for enrollment in the future and not enrolled by the student
             const tracks = await Database.getRepository(Track).createQueryBuilder('track')
-                .where('track.openForEnrollment > :currentDate AND track.openForEnrollment IS Not NULL', { currentDate: new Date(reqData["currentDate"]) })
+                .where('track.EnrollmentDeadline > :currentDate AND track.EnrollmentDeadline IS Not NULL', { currentDate: new Date(reqData["currentDate"]) })
                 .andWhere('track.id NOT IN (:...enrolledTrackIds)', { enrolledTrackIds })
                 .getMany();
             
@@ -96,47 +96,47 @@ class TracksModel {
     }
 
     // Register in a Selected Track
-async RegisterInTrack(reqData: object) {
-    // Check for missing parameters
-    const missing = checkUndefined(reqData, ["trackID", "studentID"]);
-    if (missing) {
-        return responseGenerator.sendMissingParam(missing);
-    }
-
-    try {
-        // Get The Student Info
-        const studentRepository = Database.getRepository(Student);
-        const student = await studentRepository.findOne({
-            where: { id: reqData['studentID'] },
-            relations: ["tracks"]  // Ensure that tracks relation is loaded
-        });
-
-        if (!student) {
-            return responseGenerator.sendError("Student not found");
+    async RegisterInTrack(reqData: object) {
+        // Check for missing parameters
+        const missing = checkUndefined(reqData, ["trackID", "studentID"]);
+        if (missing) {
+            return responseGenerator.sendMissingParam(missing);
         }
 
-        // Get The Track Info
-        const trackRepository = Database.getRepository(Track);
-        const track = await trackRepository.findOneBy({ id: reqData['trackID'] });
+        try {
+            // Get The Student Info
+            const studentRepository = Database.getRepository(Student);
+            const student = await studentRepository.findOne({
+                where: { id: reqData['studentID'] },
+                relations: ["tracks"]  // Ensure that tracks relation is loaded
+            });
 
-        if (!track) {
-            return responseGenerator.sendError("Track not found");
+            if (!student) {
+                return responseGenerator.sendError("Student not found");
+            }
+
+            // Get The Track Info
+            const trackRepository = Database.getRepository(Track);
+            const track = await trackRepository.findOneBy({ id: reqData['trackID'] });
+
+            if (!track) {
+                return responseGenerator.sendError("Track not found");
+            }
+
+            // Add the track to the student's list of tracks
+            Object(student.tracks).push(track);
+
+            // Save the updated student entity
+            await studentRepository.save(student);
+
+            // Return the updated student info
+            return responseGenerator.done;
+        } catch (err) {
+            // Log and handle errors
+            console.log("There is an Error!!\n", err);
+            return responseGenerator.Error;
         }
-
-        // Add the track to the student's list of tracks
-        Object(student.tracks).push(track);
-
-        // Save the updated student entity
-        await studentRepository.save(student);
-
-        // Return the updated student info
-        return responseGenerator.done;
-    } catch (err) {
-        // Log and handle errors
-        console.log("There is an Error!!\n", err);
-        return responseGenerator.Error;
     }
-}
 
     
 }
