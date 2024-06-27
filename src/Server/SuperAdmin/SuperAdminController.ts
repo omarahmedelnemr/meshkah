@@ -10,7 +10,7 @@ class SuperAdminController{
 
     // Generate a JWT to Add New Admin
     async CreateNewAdminLink(req:Request,res:Response) {
-        const response = await SuperAdminModel.CreateNewAdminLink(req.query)
+        const response = await SuperAdminModel.CreateNewAdminLink(req.body)
         res.status(response['status']).json(response['data'])
     }
 

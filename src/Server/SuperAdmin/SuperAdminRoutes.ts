@@ -7,7 +7,7 @@ const router = express()
 router.get("/admins_list", AuthorizeSuperAdmin, SuperAdminController.getAdminsList);
 
 // Generate a JWT to Add New Admin
-router.get("/admins_link", AuthorizeSuperAdmin, SuperAdminController.CreateNewAdminLink);
+router.post("/admins_link", AuthorizeSuperAdmin, SuperAdminController.CreateNewAdminLink);
 
 // Change Admin Permission
 router.post("/change_permissions", AuthorizeSuperAdmin, SuperAdminController.ChangeAdminPermission);
