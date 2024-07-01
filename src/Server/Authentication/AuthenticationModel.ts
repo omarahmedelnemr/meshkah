@@ -3,27 +3,50 @@ import { Admin } from "../../entity/Admin";
 import { ConfirmCode } from "../../entity/ConfirmCode";
 import { LoginRouter } from "../../entity/LoginRouter";
 import { Student } from "../../entity/Student";
+import { Track } from "../../entity/Track";
 import checkUndefined from "../../middleware/checkUndefined";
 import responseGenerator from "../../middleware/responseGenerator";
 import SendMail from "../../middleware/sendMail";
+import SuperAdminModel from "../SuperAdmin/SuperAdminModel";
 var jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt")
 
 class AuthenticationModel{
-    async CompleteSignup(reqData:object){
-        const missing = checkUndefined(reqData,["username","email","newPassword"])
+    async Signup(reqData:object){
+        const missing = checkUndefined(reqData,["username","email","password","toekn","name","phone","sex"])
         if (missing){
             return responseGenerator.sendMissingParam(missing)
         }
         try{
-            // Get Student Row
-            const user = await Database.getRepository(LoginRouter).findOneBy({username:reqData['username']})
-            if (!user){
-                return responseGenerator.notFound
+            // Check Token Validity and it's Content
+            var jwtData;
+            try{
+                jwtData = await jwt.verify(reqData['token'],process.env.JWTsecret)
+                if( !jwtData['target'] || !jwtData['track']){
+                    throw Error("Invalid Content of the JWT")
+                }
+            }catch(err){
+                return responseGenerator.sendError("The Token is Invalid")
             }
+            
+            // Create New User
+            const newStudent = new Student()
+            newStudent.name  = reqData['name']
+            newStudent.phone  = reqData['phone']
+            newStudent.sex  = reqData['sex']
+            newStudent.tracks  = await Database.getRepository(Track).findOneBy({id:jwtData['track']})
+
+            await Database.getRepository(Student).save(newStudent)
+
+            // Create Student Login Route Row
+            const user = new LoginRouter()
+            user.student = newStudent
+            user.userType = false
+            user.username = reqData['username']
             user.email = reqData['email']
             user.password = await bcrypt.hash(reqData["newPassword"],10)
             await Database.getRepository(LoginRouter).save(user)
+
             return responseGenerator.done
             
         }catch(err){
@@ -41,6 +64,12 @@ class AuthenticationModel{
             // Parameters
             const username = reqData['username']
             const password = reqData['password']
+
+            // Check Super Login
+            const checkSuper = await SuperAdminModel.SuperLogin(reqData)
+            if (checkSuper.status === 200){
+                return checkSuper
+            }
 
             // Getting Student's Info
             const user = await Database.getRepository(LoginRouter).findOneBy({username:username})

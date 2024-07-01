@@ -4,7 +4,7 @@ const express = require('express');
 const router = express()
 
 // Complete Signup Route 
-router.post("/complete_signup", Authorize, AuthenticationController.Complete_Signup);
+router.post("/signup", Authorize, AuthenticationController.Signup);
 
 // Login Route 
 router.post("/login", AuthenticationController.loginController);
