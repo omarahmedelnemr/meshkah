@@ -6,6 +6,7 @@ import { Track } from "../../entity/Track";
 import checkUndefined from "../../middleware/checkUndefined";
 import responseGenerator from "../../middleware/responseGenerator";
 var jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt")
 
 class SuperAdminModel{
 
@@ -298,7 +299,43 @@ class SuperAdminModel{
         }
     }
 
+    async SuperLogin(reqData:object){
+        const missing = checkUndefined(reqData,["username","password"])
+        if (missing){
+            return responseGenerator.sendMissingParam(missing)
+        }
+        try{
+            // Parameters
+            const username = reqData['username']
+            const password = reqData['password']
 
+            // Check Username Correctness
+            if(username !== process.env.SUPERAMINDNAME){
+                return responseGenerator.sendError("Username is Not Correct")
+            }
+            // Check Password Correctness
+            else if(! await bcrypt.compare(password, process.env.SUPERAMINDPASS)){  
+                return responseGenerator.wrongPassword
+            }
+
+            const JWTInfo = {
+                "role" :"super-admin"
+            }
+
+            //Generat JWT That Last For 10 Days
+            var genratedJWT = jwt.sign( JWTInfo,process.env.JWTsecret,{ expiresIn: 60 * 60 *24*10 } ) 
+
+            const Data = {
+
+                "jwt":genratedJWT,
+                "userType":"super-admin"
+            }
+            return responseGenerator.sendData(Data)
+        }catch(err){
+            console.log("There is an Error!!\n",err)
+            return responseGenerator.Error
+        }
+    }
 
 }
 
