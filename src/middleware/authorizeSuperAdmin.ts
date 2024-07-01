@@ -13,7 +13,7 @@ export async function AuthorizeSuperAdmin(req:Request,res:Response,next:any){
         const token = req.headers['authorization']
         try{
             const jwtData = await jwt.verify(token,process.env.JWTsecret)
-            if(jwtData['userType'] !== 'super-admin'){
+            if(jwtData['role'] !== 'super-admin'){
                 throw Error("unauthorized")
             }
             // If we reach Here, This Means That The JWT Passed the Check, Otherwise it will Caue an Error         
